@@ -1,10 +1,10 @@
 [package]
 name = "fast-ts-qr"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "Generador de códigos QR ultrarrápido con Rust + WebAssembly"
 license = "MIT"
-repository = "https://github.com/tu-usuario/fast-ts-qr"
+repository = "https://github.com/diegodev-01/fast-ts-qr"
 keywords = ["qr", "wasm", "webassembly", "qrcode"]
 
 [lib]
