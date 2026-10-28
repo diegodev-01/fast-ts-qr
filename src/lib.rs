@@ -2,16 +2,31 @@ use wasm_bindgen::prelude::*;
 use fast_qr::QRBuilder;
 
 #[wasm_bindgen]
-pub fn generar_qr_matriz(texto: &str) -> Result<js_sys::Uint8Array, JsValue> {
-    let qrcode = QRBuilder::new(texto)
+pub struct QrResult {
+    size: usize,
+    data: Vec<u8>,
+}
+
+#[wasm_bindgen]
+impl QrResult {
+    #[wasm_bindgen(getter)]
+    pub fn size(&self) -> usize {
+        self.size
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn data(&self) -> js_sys::Uint8Array {
+        js_sys::Uint8Array::from(&self.data[..])
+    }
+}
+
+#[wasm_bindgen(js_name = generateQr)]
+pub fn generate_qr(text: &str) -> Result<QrResult, JsValue> {
+    let qrcode = QRBuilder::new(text)
         .build()
-        .map_err(|e| JsValue::from_str(&format!("Error al generar QR: {:?}", e)))?;
+        .map_err(|e| JsValue::from_str(&format!("Error generating QR: {:?}", e)))?;
 
-    let matriz_plana: Vec<u8> = qrcode
-        .data
-        .iter()
-        .map(|m| m.value() as u8)
-        .collect();
+    let data = qrcode.data.iter().map(|m| m.value() as u8).collect();
 
-    Ok(js_sys::Uint8Array::from(&matriz_plana[..]))
+    Ok(QrResult { size: qrcode.size, data })
 }
