@@ -26,7 +26,13 @@ pub fn generate_qr(text: &str) -> Result<QrResult, JsValue> {
         .build()
         .map_err(|e| JsValue::from_str(&format!("Error generating QR: {:?}", e)))?;
 
-    let data = qrcode.data.iter().map(|m| m.value() as u8).collect();
+    let size = qrcode.size;
+    let data = qrcode
+        .data
+        .iter()
+        .take(size * size)
+        .map(|m| m.value() as u8)
+        .collect();
 
-    Ok(QrResult { size: qrcode.size, data })
+    Ok(QrResult { size, data })
 }

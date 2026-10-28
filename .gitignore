@@ -1,1 +1,5 @@
 /target
+/pkg
+wasm-inline.ts
+/dist
+/node_modules
