@@ -7,7 +7,14 @@
     "type": "git",
     "url": "https://github.com/diegodev-01/fast-ts-qr"
   },
-  "keywords": ["qr", "wasm", "webassembly", "qrcode", "ts", "web"],
+  "keywords": [
+    "qr",
+    "wasm",
+    "webassembly",
+    "qrcode",
+    "ts",
+    "web"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -17,17 +24,25 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "scripts": {
     "build:wasm": "wasm-pack build --target web --release",
     "build:inline": "node scripts/inline-wasm.mjs",
     "build:js": "tsup src-js/index.ts --format esm --dts --out-dir dist",
     "build": "npm run build:wasm && npm run build:inline && npm run build:js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "bench": "tsx bench/qr.bench.ts"
   },
   "devDependencies": {
+    "@paulmillr/qr": "^0.3.0",
+    "@types/qrcode": "^1.5.6",
+    "qrcode": "^1.5.4",
+    "tinybench": "^6.2.2",
     "tsup": "^8.0.0",
+    "tsx": "^4.23.15",
     "typescript": "^5.0.0"
   }
 }
