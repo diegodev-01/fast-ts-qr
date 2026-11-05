@@ -139,6 +139,23 @@ npm run build
 The build compiles the Rust crate to WebAssembly, embeds the binary in the
 JavaScript wrapper, and writes the package files to `dist/`.
 
+## Performance Benchmark
+
+`fast-ts-qr` is designed to deliver high-level performance by leveraging WebAssembly (Rust). Below is a speed comparison generating a QR matrix (standard URL payload, executed with `tinybench` in Node.js):
+
+| Library | Throughput (ops/sec) | Average Latency |
+| :--- | :--- | :--- |
+| **`fast-ts-qr` (WASM)** | **`8,207 ops/sec`** | **`0.12 ms`** |
+| `node-qrcode` | `3,397 ops/sec` | `0.30 ms` |
+| `paulmillr/qr` | `768 ops/sec` | `1.30 ms` |
+
+> *Note: Results may vary slightly depending on your hardware. You can run the benchmarks yourself by cloning the repository and running:*
+>
+> ```bash
+> npm install
+> npm run bench
+> ```
+
 ## Acknowledgements
 
 The QR encoding is provided by

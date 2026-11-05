@@ -1,5 +1,5 @@
 import init, { generateQr as _generateQr, QrResult } from '../pkg/fast_ts_qr.js';
-import { wasmBase64 } from './wasm-inline.js'; // generado en build
+import { wasmBase64 } from './wasm-inline.js';
 
 let ready: Promise<void> | null = null;
 

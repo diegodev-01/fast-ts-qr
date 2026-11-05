@@ -1,7 +1,7 @@
 import { Bench } from "tinybench";
 import { generateQr } from "../src-js/index";
 
-// 2. Importa las librerías de la competencia que instalaste
+// Competencias
 import QRCode from "qrcode";
 import { encodeQR } from "@paulmillr/qr";
 
@@ -12,11 +12,10 @@ async function run() {
 
   bench
     .add("🚀 Tu Librería (WASM/TS)", () => {
-      // Importante: retorna el resultado para que JS no elimine el código por optimización
       return generateQr(payload);
     })
     .add("paulmillr/qr", () => {
-      return encodeQR(payload, "bytes", "M");
+      return encodeQR(payload);
     })
     .add("node-qrcode", () => {
       return QRCode.create(payload, { errorCorrectionLevel: "M" });
@@ -28,4 +27,4 @@ async function run() {
   console.table(bench.table());
 }
 
-run();
+run().catch(console.error);
