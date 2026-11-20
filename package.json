@@ -34,7 +34,8 @@
     "build:js": "tsup src-js/index.ts --format esm --dts --out-dir dist",
     "build": "npm run build:wasm && npm run build:inline && npm run build:js",
     "prepublishOnly": "npm run build",
-    "bench": "tsx bench/qr.bench.ts"
+    "bench": "tsx bench/qr.bench.ts",
+    "test": "tsx test/read.test.ts"
   },
   "devDependencies": {
     "@paulmillr/qr": "^0.3.0",

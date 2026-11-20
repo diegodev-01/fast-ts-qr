@@ -35,6 +35,24 @@ console.log(qr.data); // Uint8Array with size * size values
 `generateQr` accepts a string and returns a `Promise<QrResult>`. The first call
 initializes WebAssembly; subsequent calls reuse the same initialized module.
 
+## Reading QR codes
+
+`readQr` decodes a QR code from raw RGBA pixels (the same layout as
+`ImageData.data`), so it works with canvas, video frames, or any decoded image.
+
+```ts
+import { readQr, readQrAll } from "fast-ts-qr";
+
+const ctx = canvas.getContext("2d")!;
+const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+const text = await readQr(image);      // string | null (first code found)
+const all = await readQrAll(image);    // string[] (every code found)
+```
+
+Any `{ data: Uint8Array | Uint8ClampedArray, width, height }` object is accepted.
+Invalid buffer sizes reject with an error.
+
 ## Rendering in a browser
 
 The result is a square matrix stored in row-major order. Each value is:
